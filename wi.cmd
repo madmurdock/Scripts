@@ -1,10 +1,18 @@
 @echo off
 if %1.==. goto invalid
 if %1==help goto help
+if %1==start goto start
 if %1==open goto open
 if %1==show goto show
 if %1==assigned goto assigned
 if %1==hockeyapp goto hockeyapp
+
+:start
+if %2.==. goto invalid
+set id=%2
+echo Setting work item %id% to in-progress
+vsts work item update --state "In Progress" --id %id%
+goto end
 
 :open
 if %2.==. goto invalid
@@ -37,6 +45,7 @@ echo Work with VSTS Work Items
 echo.
 echo Options:
 echo   help      - Show this help
+echo   start id  - Start work on a work item by marking it in-progress
 echo   open id   - Opens a work item in the browser
 echo   show id   - Shows a work item as JSON
 echo   assigned  - Shows work items assigned to me
