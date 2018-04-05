@@ -1,5 +1,7 @@
 # Scripts to automate my life
 
+- [wi.cmd](#wicmd) - Work with VSTS work items
+
 ## wi.cmd
 
 Work with VSTS Work Items. Requires the
