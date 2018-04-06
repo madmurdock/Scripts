@@ -16,3 +16,24 @@ Options:
 - show id   - Shows a work item as JSON
 - assigned  - Shows work items assigned to me
 - hockeyapp - Shows incoming HockeyApp issues
+
+## gcal-cli
+
+Third party [CLI for Google Calendar](https://github.com/toniov/gcal-cli)
+
+Install `npm install -g gcal`
+
+```
+$ gcal insert 'Party tomorrow from 3pm to 5pm'
+
+   Party: 2017-09-08T15:00:00+09:00 ~ 2017-09-08T17:00:00+09:00
+   https://www.google.com/calendar/event?eid=amNpMWE5cjg2bG80n2s0Nmg1ZWlqcW01OXMgdG9rYWdlcm9oQG0
+```
+
+```
+$ gcal list
+
+   Upcoming events (2017-09-07T00:00:00+09:00 ~ 2017-09-07T23:59:59+09:00)
+    2017-09-07 20:00 - My favorite TV show
+    2017-09-07 22:30 - Prepare tomorrow's meeting stuff
+```
