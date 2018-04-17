@@ -28,11 +28,12 @@ Work with VSTS Pull Requests.Requires the
 be installed and configured.
 
 Options:
-  help      - Show this help
-  open id   - Opens a pull request in the browser
-  show id   - Shows a pull request as JSON
-  assigned  - Shows pull requests assigned to me
-  mine      - Shows pull requests I created
+
+- help      - Show this help
+- open id   - Opens a pull request in the browser
+- show id   - Shows a pull request as JSON
+- assigned  - Shows pull requests assigned to me
+- mine      - Shows pull requests I created
 
 ## gcal-cli
 
