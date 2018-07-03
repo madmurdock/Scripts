@@ -1,6 +1,7 @@
 @echo off
 setlocal
 
+set CacheDir=C:\src\Bentley\APM\bin\cache
 set DestDir=D:\Apm\backup
 set BuildDir=\\torprdfs01\Product\Builds\7.11.0
 set /p Current=<%BuildDir%\Current.txt
@@ -12,34 +13,40 @@ if %1==getcache goto getcache
 if %1==getapptesting goto getapptesting
 if %1==getqabase goto getqabase
 if %1==getall goto getall
-if %1==uzipcache goto unzipcache
+if %1==unzipcache goto unzipcache
 if %1==restoreapptesting goto restoreapptesting
 if %1==restoreqabase goto restoreqabase
+goto invalid
 
 :getcache
 echo Fetching cache from %CurrentDir%
-copy /Y %CurrentDir%\cache.7z %DestDir%
+copy %CurrentDir%\cache.7z %DestDir%
 goto end
 
 :getapptesting
 echo Fetching IvaraApplicationTesting from %CurrentDir%
-copy /Y %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
 goto end
 
 :getqabase
 echo Fetching QA_Base from %CurrentDir%
-copy /Y %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
 goto end
 
 :getall
 echo Fetching from %CurrentDir%
-copy /Y %CurrentDir%\cache.7z %DestDir%
-copy /Y %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
-copy /Y %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\cache.7z %DestDir%
+copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
 goto end
 
-:uzipcache
-echo Unzipping Cache
+:unzipcache
+set PATH=%PATH%;"C:\Program Files\7-Zip"
+echo Deleting old cache files from %CacheDir%
+del %CacheDir% /s /q
+echo Unzipping Cache from %DestDir%\cache.7z to %CacheDir%
+7z x -y %DestDir%\cache.7z -o%CacheDir%
+popd
 rem
 goto end
 
