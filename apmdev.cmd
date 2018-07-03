@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set CacheDir=C:\src\Bentley\APM\bin\cache
+set CacheDir=C:\src\Bentley\APM\bin
 set DestDir=D:\Apm\backup
 set BuildDir=\\torprdfs01\Product\Builds\7.11.0
 set /p Current=<%BuildDir%\Current.txt
@@ -42,8 +42,8 @@ goto end
 
 :unzipcache
 set PATH=%PATH%;"C:\Program Files\7-Zip"
-echo Deleting old cache files from %CacheDir%
-del %CacheDir% /s /q
+echo Deleting old cache files from %CacheDir%\cache
+del %CacheDir%\cache /s /q
 echo Unzipping Cache from %DestDir%\cache.7z to %CacheDir%
 7z x -y %DestDir%\cache.7z -o%CacheDir%
 popd
@@ -59,7 +59,6 @@ goto end
 echo Restoring QA_BASE_TESTSUITESLocal-%Current%.bak
 call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%Current%.bak
 goto end
-
 
 :invalid
 echo Invalid command
