@@ -3,7 +3,7 @@
 - [wi.cmd](#wicmd) - Work with VSTS work items
 - [pr.cmd](#prcmd) - Work with VSTS pull requests
 - [gcal-cli](#gcal-cli) - Work with Google Calendar events
-- [ampdev.cmd](#apmdevcmd) - Update my APM development environment
+- [amp.cmd](#apmcmd) - Update my APM development environment
 
 ![AUTOMATE ALL THE THINGS!!!](images/automate.png)
 
@@ -57,16 +57,16 @@ $ gcal list
     2017-09-07 22:30 - Prepare tomorrow's meeting stuff
 ```
 
-## apmdev.cmd
+## apm.cmd
 
 Update my APM Development Environment
 
 Options:
-  help              - Show this help
-  getcache          - Copies the current cache locally
-  getapptesting     - Copies the current app testing db locally
-  getqabase         - Copies the current qa_base db locally
-  getall            - Copies the current cache and dbs locally
-  unzipcache        - Unzips the cache
-  restoreapptesting - Restores the app testing db
-  restoreqabase     - Restores the qa_base db
+  help            - Show this help
+  get cache       - Copies the current cache locally
+  get apptest     - Copies the current app testing db locally
+  get qabase      - Copies the current qa_base db locally
+  get all         - Copies the current cache and dbs locally
+  unzip cache     - Unzips the cache
+  restore apptest - Restores the app testing db
+  restore qabase  - Restores the qa_base db
