@@ -6,6 +6,8 @@ if %1==open goto open
 if %1==show goto show
 if %1==assigned goto assigned
 if %1==hockeyapp goto hockeyapp
+if %1==kbr goto kbr
+if %1==incoming goto incoming
 
 :start
 if %2.==. goto invalid
@@ -36,6 +38,14 @@ vsts work item query --id c76aebae-b24e-4c50-b815-408c5c67d77e
 echo Latest HockeyApp Issues
 vsts work item query --id 14a5d8cc-3c22-4fc6-a71e-20c0f8942d9c
 
+:kbr
+echo KBR Issues
+vsts work item query --id 833c1c07-856f-46a0-92b9-5ec871ee4984
+
+:incoming
+echo New Issues in root team
+vsts work item query --id b5f70c86-b9cd-4600-9344-b5aed71714e8
+
 :invalid
 echo Invalid command
 echo.
@@ -50,5 +60,7 @@ echo   open id   - Opens a work item in the browser
 echo   show id   - Shows a work item as JSON
 echo   assigned  - Shows work items assigned to me
 echo   hockeyapp - Shows incoming HockeyApp issues
+echo   kbr       - Shows KBR issues
+echo   incoming  - New Issues in root team
 
 :end
