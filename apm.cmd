@@ -9,10 +9,15 @@ set CurrentDir=%BuildDir%\%Current%
 
 if %1.==. goto invalid
 if %1==help goto help
+if %1==current goto current
 if %1==get goto get
 if %1==unzip goto unzip
 if %1==restore goto restore
 goto invalid
+
+:current
+echo The current APM build is %Current%
+goto end
 
 :get
 if %2.==. goto invalid
@@ -84,6 +89,7 @@ echo Update my APM Development Environment
 echo.
 echo Options:
 echo   help            - Show this help
+echo   current         - Show the version of the latest APM build
 echo   get cache       - Copies the current cache locally
 echo   get apptest     - Copies the current app testing db locally
 echo   get qabase      - Copies the current qa_base db locally
