@@ -20,6 +20,7 @@ Options:
 - open id   - Opens a work item in the browser
 - show id   - Shows a work item as JSON
 - assigned  - Shows work items assigned to me
+- kbr       - Shows KBR issues
 - hockeyapp - Shows incoming HockeyApp issues
 
 ## pr.cmd
@@ -62,11 +63,13 @@ $ gcal list
 Update my APM Development Environment
 
 Options:
-  help            - Show this help
-  get cache       - Copies the current cache locally
-  get apptest     - Copies the current app testing db locally
-  get qabase      - Copies the current qa_base db locally
-  get all         - Copies the current cache and dbs locally
-  unzip cache     - Unzips the cache
-  restore apptest - Restores the app testing db
-  restore qabase  - Restores the qa_base db
+
+- help            - Show this help
+- current         - Show the version of the latest APM build
+- get cache       - Copies the current cache locally
+- get apptest     - Copies the current app testing db locally
+- get qabase      - Copies the current qa_base db locally
+- get all         - Copies the current cache and dbs locally
+- unzip cache     - Unzips the cache
+- restore apptest - Restores the app testing db
+- restore qabase  - Restores the qa_base db
