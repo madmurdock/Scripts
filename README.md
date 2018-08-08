@@ -70,6 +70,7 @@ Options:
 - get apptest     - Copies the current app testing db locally
 - get qabase      - Copies the current qa_base db locally
 - get all         - Copies the current cache and dbs locally
-- unzip cache     - Unzips the cache
+- restore all     - Unzips the cache and restores all dbs
+- restore cache   - Unzips the cache
 - restore apptest - Restores the app testing db
 - restore qabase  - Restores the qa_base db

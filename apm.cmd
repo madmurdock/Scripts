@@ -11,7 +11,6 @@ if %1.==. goto invalid
 if %1==help goto help
 if %1==current goto current
 if %1==get goto get
-if %1==unzip goto unzip
 if %1==restore goto restore
 goto invalid
 
@@ -27,13 +26,10 @@ if %2==qabase goto getqabase
 if %2==all goto getall
 goto invalid
 
-:unzip
-if %2.==. goto invalid
-if %2==cache goto unzipcache
-goto invalid
-
 :restore
 if %2.==. goto invalid
+if %2==all goto restorecache
+if %2==cache goto restorecache
 if %2==apptest goto restoreapptesting
 if %2==qabase goto restoreqabase
 goto invalid
@@ -60,19 +56,20 @@ copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
 copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
 goto end
 
-:unzipcache
+:restorecache
 set PATH=%PATH%;"C:\Program Files\7-Zip"
 echo Deleting old cache files from %CacheDir%\cache
 del %CacheDir%\cache /s /q
 echo Unzipping Cache from %DestDir%\cache.7z to %CacheDir%
 7z x -y %DestDir%\cache.7z -o%CacheDir%
 popd
-rem
+if %2==all goto restoreapptesting
 goto end
 
 :restoreapptesting
 echo Restoring IvaraApplicationTestingLocal-%Current%.bak
 call %~dp0restoredb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%Current%.bak
+if %2==all goto restoreqabase
 goto end
 
 :restoreqabase
@@ -94,7 +91,8 @@ echo   get cache       - Copies the current cache locally
 echo   get apptest     - Copies the current app testing db locally
 echo   get qabase      - Copies the current qa_base db locally
 echo   get all         - Copies the current cache and dbs locally
-echo   unzip cache     - Unzips the cache
+echo   restore all     - Unzips the cache and restores all dbs
+echo   restore cache   - Unzips the cache
 echo   restore apptest - Restores the app testing db
 echo   restore qabase  - Restores the qa_base db
 
