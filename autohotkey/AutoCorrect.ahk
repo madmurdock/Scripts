@@ -1,4 +1,4 @@
-;------------------------------------------------------------------------------
+﻿;------------------------------------------------------------------------------
 ; CHANGELOG:
 ;
 ; Sep 13 2007: Added more misspellings.
@@ -303,6 +303,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ; those that may often not be accented either from a clash with an unaccented
 ; word (resume), or because the unaccented version is now common (cafe).
 ;------------------------------------------------------------------------------
+/*
 ::aesop::Æsop
 ::a bas::à bas
 ::a la::à la
@@ -590,7 +591,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::vis a vis::vis à vis
 ::vis-a-vis::vis-à-vis
 ::voila::voilà
-
+*/
 ;------------------------------------------------------------------------------
 ; Common Misspellings - the main list
 ;------------------------------------------------------------------------------
@@ -5013,13 +5014,13 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::pate::pâté
 ::personel::personnel
 ::positon::position
-::premiere::première
+;::premiere::première
 ::procede::proceed
 ::proceded::proceeded
 ::procedes::proceeds
 ::proceding::proceeding
 ::profesion::profession
-::resume::résumé
+;::resume::résumé
 ::withdrawl::withdrawal
 /*
 :*:cooperat::coöperat
