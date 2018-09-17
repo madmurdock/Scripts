@@ -3,7 +3,7 @@ setlocal
 
 set CacheDir=C:\src\Bentley\APM\bin
 set DestDir=D:\Apm\backup
-set BuildDir=\\torprdfs01\Product\Builds\7.11.0
+set BuildDir=\\torprdfs01\Product\Builds\7.12.0
 set /p Current=<%BuildDir%\Current.txt
 set CurrentDir=%BuildDir%\%Current%
 
