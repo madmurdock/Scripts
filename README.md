@@ -64,13 +64,16 @@ Update my APM Development Environment
 
 Options:
 
-- help            - Show this help
-- current         - Show the version of the latest APM build
-- get cache       - Copies the current cache locally
-- get apptest     - Copies the current app testing db locally
-- get qabase      - Copies the current qa_base db locally
-- get all         - Copies the current cache and dbs locally
-- restore all     - Unzips the cache and restores all dbs
-- restore cache   - Unzips the cache
-- restore apptest - Restores the app testing db
-- restore qabase  - Restores the qa_base db
+- help                    - Show this help
+- current                 - Show the version of the latest APM build
+- get cache               - Copies the current cache locally
+- get apptest             - Copies the current app testing db locally
+- get qabase              - Copies the current qa_base db locally
+- get all                 - Copies the current cache and dbs locally
+- restore all             - Unzips the cache and restores all dbs
+- restore cache           - Unzips the cache
+- restore apptest         - Restores the app testing db
+- restore qabase          - Restores the qa_base db  help                    - Show this help
+- restore localdb all     - Restores all dbs to localDB
+- restore localdb apptest - Restores the app testing db to localDB
+- restore localdb qabase  - Restores the qa_base db to localDB
