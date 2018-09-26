@@ -32,6 +32,14 @@ if %2==all goto restorecache
 if %2==cache goto restorecache
 if %2==apptest goto restoreapptesting
 if %2==qabase goto restoreqabase
+if %2==localdb goto restorelocaldb
+goto invalid
+
+:restorelocaldb
+if %3.==. goto invalid
+if %3==all goto restoreapptestinglocaldb
+if %3==apptest goto restoreapptestinglocaldb
+if %3==qabase goto restoreqabaselocaldb
 goto invalid
 
 :getcache
@@ -77,6 +85,17 @@ echo Restoring QA_BASE_TESTSUITESLocal-%Current%.bak
 call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%Current%.bak
 goto end
 
+:restoreapptestinglocaldb
+echo Restoring IvaraApplicationTestingLocal-%Current%.bak to LocalDB
+call %~dp0restorelocaldb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%Current%.bak
+if %3==all goto restoreqabaselocaldb
+goto end
+
+:restoreqabaselocaldb
+echo Restoring QA_BASE_TESTSUITESLocal-%Current%.bak to LocalDB
+call %~dp0restorelocaldb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%Current%.bak
+goto end
+
 :invalid
 echo Invalid command
 echo.
@@ -85,15 +104,18 @@ echo.
 echo Update my APM Development Environment
 echo.
 echo Options:
-echo   help            - Show this help
-echo   current         - Show the version of the latest APM build
-echo   get cache       - Copies the current cache locally
-echo   get apptest     - Copies the current app testing db locally
-echo   get qabase      - Copies the current qa_base db locally
-echo   get all         - Copies the current cache and dbs locally
-echo   restore all     - Unzips the cache and restores all dbs
-echo   restore cache   - Unzips the cache
-echo   restore apptest - Restores the app testing db
-echo   restore qabase  - Restores the qa_base db
+echo   help                    - Show this help
+echo   current                 - Show the version of the latest APM build
+echo   get cache               - Copies the current cache locally
+echo   get apptest             - Copies the current app testing db locally
+echo   get qabase              - Copies the current qa_base db locally
+echo   get all                 - Copies the current cache and dbs locally
+echo   restore all             - Unzips the cache and restores all dbs
+echo   restore cache           - Unzips the cache
+echo   restore apptest         - Restores the app testing db
+echo   restore qabase          - Restores the qa_base db
+echo   restore localdb all     - Restores all dbs to localDB
+echo   restore localdb apptest - Restores the app testing db to localDB
+echo   restore localdb qabase  - Restores the qa_base db to localDB
 
 :end
