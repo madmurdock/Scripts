@@ -14,7 +14,7 @@ sqlcmd -S . -d master -E -Q "ALTER DATABASE [%1] SET SINGLE_USER WITH ROLLBACK I
 sqlcmd -S . -d master -E -Q "RESTORE DATABASE [%1] FROM  DISK = N'%2' WITH  FILE = 1,  MOVE N'ivara_data' TO N'%DATADIR%\%1.mdf',  MOVE N'ivara_log' TO N'%DATADIR%\%1.ldf',  NOUNLOAD,  REPLACE,  STATS = 10"
 sqlcmd -S . -d master -E -Q "ALTER DATABASE [%1] SET MULTI_USER"
 sqlcmd -S . -d "%1" -E -i "%SOURCEDIR%\dbscripts\app\sqlserver\init_ivara.sql"
-sqlcmd -S . -d master -E -Q "create database [%1_snap] on ( name=N'Ivara_data', filename=N'%DATADIR%%1_snap.ss' ) as snapshot of %1%;"
+sqlcmd -S . -d "%1" -E -Q "UPDATE oq.ouser SET APMSERVERMAN=1, PRIVILEGE=1 WHERE LOGINNAME='Rob.Prouse'"
 goto end
 
 :usage
