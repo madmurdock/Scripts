@@ -9,11 +9,10 @@ if "" == "%1" goto usage
 if "" == "%2" goto usage
 
 @echo Restoring the database backup %1
-rem sqlcmd -S "(localdb)\MSSQLLocalDB" -d master -E -Q "DROP DATABASE %1_snap"
-rem sqlcmd -S "(localdb)\MSSQLLocalDB" -d master -E -Q "ALTER DATABASE [%1] SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+sqlcmd -S "(localdb)\MSSQLLocalDB" -d master -E -Q "DROP DATABASE %1_snap"
 sqlcmd -S "(localdb)\MSSQLLocalDB" -d master -E -Q "RESTORE DATABASE [%1] FROM  DISK = N'%2' WITH  FILE = 1,  MOVE N'ivara_data' TO N'%DATADIR%\%1.mdf',  MOVE N'ivara_log' TO N'%DATADIR%\%1.ldf',  NOUNLOAD,  REPLACE,  STATS = 10"
-rem sqlcmd -S "(localdb)\MSSQLLocalDB" -d master -E -Q "ALTER DATABASE [%1] SET MULTI_USER"
 sqlcmd -S "(localdb)\MSSQLLocalDB" -d "%1" -E -i "%SOURCEDIR%\dbscripts\app\sqlserver\init_ivara.sql"
+sqlcmd -S "(localdb)\MSSQLLocalDB" -E -Q "create database [%1_snap] on ( name=N'Ivara_data', filename=N'%DATADIR%%1_snap.ss' ) as snapshot of %1%;"
 goto end
 
 :usage
