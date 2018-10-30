@@ -4,6 +4,7 @@ setlocal
 set CacheDir=C:\src\Bentley\APM\bin
 set DestDir=D:\Apm\backup
 set BuildDir=\\torprdfs01\Product\Builds\7.12.0
+set /p CurrentLocal=<%DestDir%\Current.txt
 set /p Current=<%BuildDir%\Current.txt
 set CurrentDir=%BuildDir%\%Current%
 
@@ -15,54 +16,30 @@ if %1==restore goto restore
 goto invalid
 
 :current
-echo The current APM build is %Current%
+echo APM build:  %Current%
+echo Downloaded: %CurrentLocal%
 goto end
 
 :get
-if %2.==. goto invalid
-if %2==cache goto getcache
-if %2==apptest goto getapptesting
-if %2==qabase goto getqabase
-if %2==all goto getall
-goto invalid
+echo Fetching from %CurrentDir%
+echo Copying Current.txt
+copy %BuildDir%\Current.txt %DestDir%
+echo Copying cache.7z
+copy %CurrentDir%\cache.7z %DestDir%
+echo Copying IvaraApplicationTestingLocal-%Current%.bak
+copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
+echo Copying QA_BASE_TESTSUITESLocal-%Current%.bak
+copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
+goto end
 
 :restore
-if %2.==. goto invalid
+if %2.==. goto restorecache
 if %2==all goto restorecache
 if %2==cache goto restorecache
 if %2==apptest goto restoreapptesting
 if %2==qabase goto restoreqabase
 if %2==localdb goto restorelocaldb
 goto invalid
-
-:restorelocaldb
-if %3.==. goto invalid
-if %3==all goto restoreapptestinglocaldb
-if %3==apptest goto restoreapptestinglocaldb
-if %3==qabase goto restoreqabaselocaldb
-goto invalid
-
-:getcache
-echo Fetching cache from %CurrentDir%
-copy %CurrentDir%\cache.7z %DestDir%
-goto end
-
-:getapptesting
-echo Fetching IvaraApplicationTesting from %CurrentDir%
-copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
-goto end
-
-:getqabase
-echo Fetching QA_Base from %CurrentDir%
-copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
-goto end
-
-:getall
-echo Fetching from %CurrentDir%
-copy %CurrentDir%\cache.7z %DestDir%
-copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
-copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
-goto end
 
 :restorecache
 set PATH=%PATH%;"C:\Program Files\7-Zip"
@@ -71,29 +48,27 @@ del %CacheDir%\cache /s /q
 echo Unzipping Cache from %DestDir%\cache.7z to %CacheDir%
 7z x -y %DestDir%\cache.7z -o%CacheDir%
 popd
+if %2.==. goto restoreapptesting
 if %2==all goto restoreapptesting
 goto end
 
 :restoreapptesting
-echo Restoring IvaraApplicationTestingLocal-%Current%.bak
-call %~dp0restoredb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%Current%.bak
+echo Restoring IvaraApplicationTestingLocal-%CurrentLocal%.bak
+call %~dp0restoredb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%CurrentLocal%.bak
+if %2.==. goto restoreqabase
 if %2==all goto restoreqabase
 goto end
 
 :restoreqabase
-echo Restoring QA_BASE_TESTSUITESLocal-%Current%.bak
-call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%Current%.bak
+echo Restoring QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
+call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
 goto end
 
-:restoreapptestinglocaldb
-echo Restoring IvaraApplicationTestingLocal-%Current%.bak to LocalDB
-call %~dp0restorelocaldb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%Current%.bak
-if %3==all goto restoreqabaselocaldb
-goto end
-
-:restoreqabaselocaldb
-echo Restoring QA_BASE_TESTSUITESLocal-%Current%.bak to LocalDB
-call %~dp0restorelocaldb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%Current%.bak
+:restorelocaldb
+echo Restoring IvaraApplicationTestingLocal-%CurrentLocal%.bak to LocalDB
+call %~dp0restorelocaldb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%CurrentLocal%.bak
+echo Restoring QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak to LocalDB
+call %~dp0restorelocaldb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
 goto end
 
 :invalid
@@ -106,16 +81,12 @@ echo.
 echo Options:
 echo   help                    - Show this help
 echo   current                 - Show the version of the latest APM build
-echo   get cache               - Copies the current cache locally
-echo   get apptest             - Copies the current app testing db locally
-echo   get qabase              - Copies the current qa_base db locally
-echo   get all                 - Copies the current cache and dbs locally
+echo   get                     - Copies the current cache and dbs locally
+echo   restore                 - Unzips the cache and restores all dbs
 echo   restore all             - Unzips the cache and restores all dbs
 echo   restore cache           - Unzips the cache
 echo   restore apptest         - Restores the app testing db
 echo   restore qabase          - Restores the qa_base db
-echo   restore localdb all     - Restores all dbs to localDB
-echo   restore localdb apptest - Restores the app testing db to localDB
-echo   restore localdb qabase  - Restores the qa_base db to localDB
+echo   restore localdb         - Restores all dbs to localDB
 
 :end
