@@ -27,9 +27,9 @@ copy %BuildDir%\Current.txt %DestDir%
 echo Copying cache.7z
 copy %CurrentDir%\cache.7z %DestDir%
 echo Copying IvaraApplicationTestingLocal-%Current%.bak
-copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\IvaraApplicationTestingLocal-%Current%.bak %DestDir%\IvaraApplicationTestingLocal.bak
 echo Copying QA_BASE_TESTSUITESLocal-%Current%.bak
-copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%
+copy %CurrentDir%\QA_BASE_TESTSUITESLocal-%Current%.bak %DestDir%\QA_BASE_TESTSUITESLocal.bak
 goto end
 
 :restore
@@ -53,22 +53,22 @@ if %2==all goto restoreapptesting
 goto end
 
 :restoreapptesting
-echo Restoring IvaraApplicationTestingLocal-%CurrentLocal%.bak
-call %~dp0restoredb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%CurrentLocal%.bak
+echo Restoring IvaraApplicationTestingLocal.bak v%Current%
+call %~dp0restoredb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal.bak
 if %2.==. goto restoreqabase
 if %2==all goto restoreqabase
 goto end
 
 :restoreqabase
-echo Restoring QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
-call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
+echo Restoring QA_BASE_TESTSUITESLocal.bak v%Current%
+call %~dp0restoredb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal.bak
 goto end
 
 :restorelocaldb
-echo Restoring IvaraApplicationTestingLocal-%CurrentLocal%.bak to LocalDB
-call %~dp0restorelocaldb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal-%CurrentLocal%.bak
-echo Restoring QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak to LocalDB
-call %~dp0restorelocaldb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal-%CurrentLocal%.bak
+echo Restoring IvaraApplicationTestingLocal.bak v%Current% to LocalDB
+call %~dp0restorelocaldb IvaraApplicationTestingLocal %DestDir%\IvaraApplicationTestingLocal.bak
+echo Restoring QA_BASE_TESTSUITESLocal.bak v%Current% to LocalDB
+call %~dp0restorelocaldb QA_Base %DestDir%\QA_BASE_TESTSUITESLocal.bak
 goto end
 
 :invalid
